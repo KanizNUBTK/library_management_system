@@ -95,7 +95,7 @@ const AddBooks = () => {
                          Upload
                         </Button>
                     </form>
-                    {success && <Alert severity="success">Profile is completed</Alert>}
+                    {success && <Alert severity="success">Book Uploaded Successfully</Alert>}
                 </Box>
             </Container>    
         </div>

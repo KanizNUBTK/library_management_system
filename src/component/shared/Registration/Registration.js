@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { CircularProgress, Alert} from '@mui/material';
 import useAuth from '../../../hook/useAuth';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate ,Link} from 'react-router-dom';
 
 const Registration = () => {
     const [registarData, setRegistardata] = useState({});
@@ -18,7 +18,7 @@ const Registration = () => {
     const handleOnBlur = e =>{
         const field = e.target.name;
         const value = e.target.value;
-        console.log(field,value);
+        //console.log(field,value);
         const newRegistrationData = {...registarData};
         newRegistrationData[field] = value;
         setRegistardata(newRegistrationData);
@@ -30,7 +30,7 @@ const Registration = () => {
             return
         }
         registerUser(registarData.email, registarData.password, registarData.name, locaction,navigate);
-        console.log(registarData.email, registarData.password, registarData.name);
+        //console.log(registarData.email, registarData.password, registarData.name);
     }
     return (
         <div>
@@ -73,6 +73,11 @@ const Registration = () => {
                                     variant="standard" />
                                     <Button variant="contained" type="submit" sx={{width:"100%",mt:2}}>Register</Button>
                                 </form>
+                                <Box>
+                                    <Typography variant="body1" sx={{color:'blue', fontWeight:'bold', my:3}} component="div">
+                                        Already Have Account? <Link to='/login' style={{color:'blue', fontWeight:'bold' ,textDecoration:'none'}}>Please login ...</Link> 
+                                    </Typography>
+                                </Box>
                                 {isLoading && <CircularProgress />}
                                 {user?.email && <Alert severity="success">Register successfully!</Alert>}
                                 {authError && <Alert severity="error">{authError}</Alert>}

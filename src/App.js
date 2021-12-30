@@ -9,6 +9,8 @@ import PrivateRoute from './component/shared/PrivateRoute/PrivateRoute';
 import Home from './component/pages/Home/Home/Home';
 import DashboardHome from './component/pages/Dashboard/DashboardHome/DashboardHome';
 import AddBooks from './component/pages/Dashboard/AddBooks/AddBooks';
+import MakeAdmin from './component/pages/Dashboard/MakeAdmin/MakeAdmin';
+import AdminRoute from './component/shared/AdminRoute/AdminRoute';
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
               </PrivateRoute>} >
                 <Route exact path = "/dashboard" element={<DashboardHome />}/>
                 <Route path = "/dashboard/addBooks" element={<AddBooks />}/>
+                <Route path = "/dashboard/makeAdmin" element={<AdminRoute>
+                  <MakeAdmin />
+                </AdminRoute>}/>
             </Route>
             <Route path="login" element={<Login />}/>
             <Route path="registration" element={<Registration />}/>

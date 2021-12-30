@@ -8,6 +8,7 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [authError, setAuthError] = useState('');
     const [isLoading, setIsloading] = useState(true);
+    const [admin,setAdmin]=useState(false);
 
     const auth = getAuth();
 
@@ -21,6 +22,7 @@ const useFirebase = () => {
                 setAuthError('');
                 const newUser = {email, displayName:name};
                 setUser(newUser);
+                savedUser(email,name);
                 navigate(destination);
                 updateProfile(auth.currentUser, {
                     displayName: name
@@ -60,7 +62,18 @@ const useFirebase = () => {
           });
           return ()=> unSubscribe;
     },[auth])
-
+    //make admin
+    console.log(user.email);
+    useEffect(()=>{
+        const url=`http://localhost:5000/users/${user.email}`;
+        fetch(url)
+        .then(res=>res.json())
+        .then(data=>{
+            console.log('check admin', data);
+            setAdmin(data.admin);
+        })
+    },[user,admin]);
+    console.log(admin);
     //logout
     const logout=()=>{
         signOut(auth).then(() => {
@@ -69,9 +82,20 @@ const useFirebase = () => {
             // An error happened.
           });
     }
+    //saved user in database
+    const savedUser = (email,displayName)=>{
+        const user={email,displayName};
+        fetch('http://localhost:5000/users',{
+            method:'POST',
+            headers:{'content-type':'application/json'},
+            body:JSON.stringify(user)
+        })
+        .then()
+    }
 
     return {
         user,
+        admin,
         authError,
         isLoading,
         registerUser,

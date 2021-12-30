@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { CircularProgress, Alert} from '@mui/material';
 import useAuth from '../../../hook/useAuth';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate ,Link} from 'react-router-dom';
 
 const Login = () => {
     const [loginData, setLogindata] = useState({});
@@ -18,7 +18,7 @@ const Login = () => {
     const handleOnBlur = e =>{
         const field = e.target.name;
         const value = e.target.value;
-        console.log(field,value);
+        //console.log(field,value);
         const newRegistrationData = {...loginData};
         newRegistrationData[field] = value;
         setLogindata(newRegistrationData);
@@ -26,7 +26,7 @@ const Login = () => {
     const handleLoginSubmit = e =>{
         e.preventDefault();
         loginUser(loginData.email, loginData.password, locaction,navigate);
-        console.log(loginData.email, loginData.password);
+        //console.log(loginData.email, loginData.password);
     }
     return (
         <div>
@@ -55,6 +55,11 @@ const Login = () => {
                                     variant="standard" />
                                     <Button variant="contained" type="submit" sx={{width:"100%",mt:2}}>login</Button>
                                 </form>
+                                <Box>
+                                    <Typography variant="body1" sx={{color:'blue', fontWeight:'bold', my:3}} component="div">
+                                        New User? <Link to='/registration' style={{color:'blue', fontWeight:'bold' ,textDecoration:'none'}}>Please resgister ...</Link> 
+                                    </Typography>
+                                </Box>
                                 {isLoading && <CircularProgress />}
                                 {user?.email && <Alert severity="success">Login successfully!</Alert>}
                                 {authError && <Alert severity="error">{authError}</Alert>}

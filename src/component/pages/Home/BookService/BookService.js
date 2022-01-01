@@ -16,7 +16,7 @@ const BookService = () => {
     const[booksData, setBooksData]=useState([]);
     
     useEffect(()=>{
-        fetch('http://localhost:5000/addBookData')
+        fetch('https://radiant-oasis-30989.herokuapp.com/addBookData')
         .then(res=>res.json())
         .then(data=>{
             console.log(data);

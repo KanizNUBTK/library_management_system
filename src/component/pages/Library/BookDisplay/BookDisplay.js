@@ -36,7 +36,7 @@ const BookDisplay = () => {
     const handleBookingClose = () => {setBookingOpen(false);};
     console.log(bookId);
     useEffect(() => {
-        fetch('http://localhost:5000/addBookData')
+        fetch('https://radiant-oasis-30989.herokuapp.com/addBookData')
           .then((res) => res.json())
           .then((data) => {
               console.log(data);
@@ -62,7 +62,7 @@ const BookDisplay = () => {
             productPrice: exactData[0]?.price,
           }
           //send server
-          fetch('http://localhost:5000/cart', {
+          fetch('https://radiant-oasis-30989.herokuapp.com/cart', {
               method: 'POST',
               headers: {
                   'content-type': 'application/json'

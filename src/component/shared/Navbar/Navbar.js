@@ -88,7 +88,7 @@ const Navbar = () => {
       );
       //view profile picture
       useEffect(()=>{
-        fetch('http://localhost:5000/profile')
+        fetch('https://radiant-oasis-30989.herokuapp.com/profile')
         .then(res=>res.json())
         .then(data=>{
             //console.log(data);

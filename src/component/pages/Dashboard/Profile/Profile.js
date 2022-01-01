@@ -41,7 +41,7 @@ const Profile = () => {
         formData.append('personTow',personTow);
         formData.append('profilePictute',profilePictute);
 
-        fetch('http://localhost:5000/profile', {
+        fetch('https://radiant-oasis-30989.herokuapp.com/profile', {
             method: 'POST',
             body: formData
         })
@@ -55,7 +55,7 @@ const Profile = () => {
         });
     }
     useEffect(()=>{
-        fetch('http://localhost:5000/profile')
+        fetch('https://radiant-oasis-30989.herokuapp.com/profile')
         .then(res=>res.json())
         .then(data=>{
             //console.log(data);

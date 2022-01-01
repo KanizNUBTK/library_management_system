@@ -65,7 +65,7 @@ const useFirebase = () => {
     //make admin
     console.log(user.email);
     useEffect(()=>{
-        const url=`http://localhost:5000/users/${user.email}`;
+        const url=`https://radiant-oasis-30989.herokuapp.com/users/${user.email}`;
         fetch(url)
         .then(res=>res.json())
         .then(data=>{
@@ -85,7 +85,7 @@ const useFirebase = () => {
     //saved user in database
     const savedUser = (email,displayName)=>{
         const user={email,displayName};
-        fetch('http://localhost:5000/users',{
+        fetch('https://radiant-oasis-30989.herokuapp.com/users',{
             method:'POST',
             headers:{'content-type':'application/json'},
             body:JSON.stringify(user)

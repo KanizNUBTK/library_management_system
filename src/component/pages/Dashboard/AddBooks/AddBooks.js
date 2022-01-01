@@ -24,7 +24,7 @@ const AddBooks = () => {
         formData.append('publisherName',publisherName);
         formData.append('bookType',bookType);
         formData.append('bookImage',bookImage);
-        fetch('http://localhost:5000/addBookData', {
+        fetch('https://radiant-oasis-30989.herokuapp.com/addBookData', {
             method: 'POST',
             body: formData
         })

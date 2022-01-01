@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 const DashboardHome = () => {
     const[books,setBooks]=useState([]);
     useEffect(()=>{
-        fetch('http://localhost:5000/cart')
+        fetch('https://radiant-oasis-30989.herokuapp.com/cart')
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
@@ -25,7 +25,7 @@ const DashboardHome = () => {
     const handleDeleteUser = id =>{
         const proceed = window.confirm('Are sure you want to delete the customer?');
         if(proceed){
-         const url = `http://localhost:5000/cart/${id}`;
+         const url = `https://radiant-oasis-30989.herokuapp.com/cart/${id}`;
          fetch(url,{
              method:'DELETE'
          })

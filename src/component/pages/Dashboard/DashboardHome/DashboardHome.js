@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import Box from '@mui/material/Box';
 
 const DashboardHome = () => {
     const[books,setBooks]=useState([]);
@@ -40,10 +40,11 @@ const DashboardHome = () => {
      }
     return (
         <div>
+            <Box sx={{width:{xs:300,sm:400, md:'100%'}}}>
              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table sx={{width:{xs:100,sm:200, md:'100%'}}} aria-label="simple table">
                     <TableHead>
-                        <TableRow>
+                        <TableRow sx={{width:{xs:50,sm:100}}}>
                             <TableCell>Customer Name</TableCell>
                             <TableCell>Cusmoter Email</TableCell>
                             <TableCell>Book name</TableCell>
@@ -51,9 +52,9 @@ const DashboardHome = () => {
                             <TableCell>Action</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody sx={{width:{xs:50,sm:100}}}>
                     {books.map((row) => (
-                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 },width:{xs:50,sm:100} }}>
                         <TableCell component="th" scope="row">
                             {row.customerName}
                         </TableCell>
@@ -68,6 +69,7 @@ const DashboardHome = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </Box>
         </div>
     );
 };

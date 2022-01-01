@@ -26,7 +26,7 @@ const Profile = () => {
     const[success, setSuccess] = useState(false);
     //view user profile data
     const[viewProfile, setViewProfile]=useState([]);
-
+     console.log(user.email);
     const handleUserProfile = e=>{
         e.preventDefault();
         if(!profilePictute){
@@ -65,22 +65,27 @@ const Profile = () => {
     return (
         <div>
             <Container>
-                <Typography variant ="h4" sx={{fontWeight:'bold', color:'blue',m:3}}> Your Profile...</Typography>
+                <Typography variant ="h4" sx={{fontWeight:'bold', color:'blue',m:3}}> Your Profile...</Typography> 
                 <Grid style={{marginTop:'10px'}} container spacing={{ xs: 12, md: 3 }} columns={{ xs: 12, sm: 8, md: 12 }}>
                     <Grid xs={12} md={6} sx={{mb:3}}>
                         <Box sx={{mx:10}}>
                             <img style={{height:'300px',width:'300px',borderRadius:'50%'}} src={`data:image/png;base64,${viewProfile[0]?.profilePictute}`} alt="" />
                         </Box>
                     </Grid>
+                    { user.email &&
                     <Grid xs={12} md={6}>
-                        <Typography variant ="h5" sx={{fontWeight:'bold', color:'blue',my:1}}>Your Information..</Typography>
-                        <Typography variant ="h6" sx={{my:1}}>Name : {viewProfile[0]?.userName}</Typography>
-                        <Typography variant ="h6" sx={{my:1}}>Email : {viewProfile[0]?.userEmail}</Typography>
-                        <Typography variant ="h6" sx={{my:1}}>Phone Number : {viewProfile[0]?.userPhoneNumber}</Typography>
-                        <Typography variant ="h6" sx={{my:1}}>Address : {viewProfile[0]?.userAddress}</Typography>
-                        <Typography variant ="h6" sx={{my:1}}>Neighbor : {viewProfile[0]?.memberOne}</Typography>
-                        <Typography variant ="h6" sx={{my:1}}>Neighbor : {viewProfile[0]?.memberTow}</Typography>
+                        {viewProfile.map(vp=>
+                            <Box>
+                            <Typography variant ="h5" sx={{fontWeight:'bold', color:'blue',my:1}}>Your Information..</Typography>
+                            <Typography variant ="h6" sx={{my:1}}>Name : {vp?.userName}</Typography>
+                            <Typography variant ="h6" sx={{my:1}}>Email : {vp?.userEmail}</Typography>
+                            <Typography variant ="h6" sx={{my:1}}>Phone Number : {vp?.userPhoneNumber}</Typography>
+                            <Typography variant ="h6" sx={{my:1}}>Address : {vp?.userAddress}</Typography>
+                            <Typography variant ="h6" sx={{my:1}}>Neighbor : {vp?.memberOne}</Typography>
+                            <Typography variant ="h6" sx={{my:1}}>Neighbor : {vp?.memberTow}</Typography>
+                            </Box>)}
                     </Grid>
+                    }
                 </Grid>
             </Container>
             <Divider variant="middle" />

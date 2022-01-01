@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const DashboardHome = () => {
     const[books,setBooks]=useState([]);
@@ -47,7 +48,6 @@ const DashboardHome = () => {
                             <TableCell>Cusmoter Email</TableCell>
                             <TableCell>Book name</TableCell>
                             <TableCell>Book Price</TableCell>
-                            <TableCell>Status</TableCell>
                             <TableCell>Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -60,9 +60,6 @@ const DashboardHome = () => {
                         <TableCell>{row.email}</TableCell>
                         <TableCell>{row.productName}</TableCell>
                         <TableCell>{row.productPrice}</TableCell>
-                        <TableCell>
-                            <Button variant="contained">Pay</Button>
-                        </TableCell>
                         <TableCell>
                             <Button variant="contained" onClick={()=>handleDeleteUser(row._id)}  sx={{ bgcolor:'red'}}>Delete</Button>
                         </TableCell>

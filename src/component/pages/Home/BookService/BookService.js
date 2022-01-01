@@ -8,10 +8,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import Navbar from '../../../shared/Navbar/Navbar';
-import Footer from '../../../shared/Footer/Footer';
-import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
+import middleBanner from '../../../../images/middleBanner.jpg';
 
 
 const BookService = () => {
@@ -27,8 +25,14 @@ const BookService = () => {
     },[]);
     return (
         <div>
-            <Container sx={{my:5}}>
-            <Box sx={{ flexGrow: 1 }}>
+            <Container sx={{my:5 , boxShadow:3}}>
+            <Box sx={{ flexGrow: 1, pb:5 }}>
+                <Box sx={{ display:'flex', my:5 ,justifyContent:'center'}}>
+                    <Typography variant="h3" sx={{color:'blue',my:'auto',fontWeight:'bold'}} component="div">
+                        Our
+                    </Typography>
+                    <img style={{width:'50%',height:'150px'}} src={middleBanner} alt="" />
+                </Box>
                     <Grid container spacing={{ xs: 3, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
                         {booksData.map(bd=> 
                             <Grid item xs={12} sm={3} md={4}>

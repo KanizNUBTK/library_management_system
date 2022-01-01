@@ -12,7 +12,7 @@ import AddBooks from './component/pages/Dashboard/AddBooks/AddBooks';
 import MakeAdmin from './component/pages/Dashboard/MakeAdmin/MakeAdmin';
 import AdminRoute from './component/shared/AdminRoute/AdminRoute';
 import Profile from './component/pages/Dashboard/Profile/Profile';
-import BookCharts from './component/pages/Dashboard/BookCharts/BookCharts';
+import Payment from './component/pages/Dashboard/Payment/Payment';
 import BookDisplay from './component/pages/Library/BookDisplay/BookDisplay';
 
 function App() {
@@ -35,11 +35,9 @@ function App() {
                 <Route exact path = "/dashboard" element={<DashboardHome />}/>
                 <Route path = "/dashboard/addBooks" element={<AddBooks />}/>
                 <Route path = "/dashboard/profile" element={<Profile />}/>
+                <Route path = "/dashboard/payment" element={<Payment />}/>
                 <Route path = "/dashboard/makeAdmin" element={<AdminRoute>
                   <MakeAdmin />
-                </AdminRoute>}/>
-                <Route path = "/dashboard/bookCharts" element={<AdminRoute>
-                  <BookCharts />
                 </AdminRoute>}/>
             </Route>
             <Route path="login" element={<Login />}/>

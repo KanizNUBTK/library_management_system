@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
+import { Link } from 'react-router-dom';
 
 const DashboardHome = () => {
     const[books,setBooks]=useState([]);
@@ -38,6 +39,7 @@ const DashboardHome = () => {
          })
         }
      }
+   
     return (
         <div>
             <Box sx={{width:{xs:300,sm:400, md:'100%'}}}>
@@ -49,6 +51,7 @@ const DashboardHome = () => {
                             <TableCell>Cusmoter Email</TableCell>
                             <TableCell>Book name</TableCell>
                             <TableCell>Book Price</TableCell>
+                            <TableCell>Status</TableCell>
                             <TableCell>Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -61,6 +64,11 @@ const DashboardHome = () => {
                         <TableCell>{row.email}</TableCell>
                         <TableCell>{row.productName}</TableCell>
                         <TableCell>{row.productPrice}</TableCell>
+                        <Link to="/dashboard/payment" style={{textDecoration:'none'}}>
+                        <TableCell>
+                            <Button variant="contained" sx={{ bgcolor:'red'}}>Pay</Button>
+                        </TableCell>
+                        </Link>
                         <TableCell>
                             <Button variant="contained" onClick={()=>handleDeleteUser(row._id)}  sx={{ bgcolor:'red'}}>Delete</Button>
                         </TableCell>

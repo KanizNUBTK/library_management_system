@@ -113,7 +113,7 @@ const Navbar = () => {
                     <MenuIcon />
                     </IconButton>
                     <Typography className={navLogo} variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Library
+                    WHO Library Management System
                     </Typography>
                     <Box className={navContainer}>
                         <Link to="/home" className={nabItemMD}><Button color="inherit">Home</Button></Link>

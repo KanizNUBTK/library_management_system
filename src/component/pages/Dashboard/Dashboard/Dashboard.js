@@ -32,10 +32,10 @@ const Dashboard = (props) => {
             <Link to="/" style={{textDecoration:'none'}}><Button color="inherit">Home</Button></Link> <br />
             <Link to="/dashboard" style={{textDecoration:'none'}}><Button color="inherit">Dashboard</Button></Link> <br />
             <Link to="/dashboard/addBooks" style={{textDecoration:'none'}}><Button color="inherit">Add Books</Button></Link> <br />
-            
+            <Link to="/dashboard/profile" style={{textDecoration:'none'}}><Button color="inherit">Profile</Button></Link> <br />
             {admin && <Box>
                 <Link to={`/dashboard/makeAdmin`} style={{textDecoration:'none'}}><Button color="inherit">Make Admin</Button></Link>
-                <Link to={`/dashboard/addService`} style={{textDecoration:'none'}}><Button color="inherit">Add Diet Chart Pdf</Button></Link>
+                <Link to={`/dashboard/bookCharts`} style={{textDecoration:'none'}}><Button color="inherit">Book Charts</Button></Link>
                 <Link to={`/dashboard/addExcerice`} style={{textDecoration:'none'}}><Button color="inherit">Add Gym Equipment </Button></Link>
             </Box>}
             {user.email && <span style={{ padding:'10px' }}>{user.displayName} </span>} <br />

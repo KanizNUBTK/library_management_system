@@ -13,12 +13,9 @@ import Footer from '../../../shared/Footer/Footer';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 
-const LibrarySerach = () => {
+
+const BookService = () => {
     const[booksData, setBooksData]=useState([]);
-    const[searchBooks, setSearchBooks]=useState([]);
-    // const[name, setName]=useState('');
-    // const[authorName, setAuthorName]=useState('');
-    // const[publisherName, setPublisherName]=useState('');
     
     useEffect(()=>{
         fetch('http://localhost:5000/addBookData')
@@ -26,53 +23,14 @@ const LibrarySerach = () => {
         .then(data=>{
             console.log(data);
             setBooksData(data);
-            setSearchBooks(data);
         })
     },[]);
-
-     //search books
-    const handleBookSearchByName = e =>{
-        const searchText=e.target.value;
-        const matchedbook = booksData?.filter(book=>book.bookName.toLowerCase().includes(searchText.toLowerCase()));
-        // const matchedbook = booksData?.filter(book=>book.bookName.toLowerCase().includes(name.toLowerCase()))?.filter(author=>author.authorName.toLowerCase().includes(authorName.toLowerCase()))?.filter(publisher=>publisher.publisherName.toLowerCase().includes(publisherName.toLowerCase()));
-        console.log(matchedbook.length);
-        setSearchBooks(matchedbook);
-        e.preventDefault();
-    }
-    const handleBookSearchByAuthorName = e =>{
-        const authorName=e.target.value;
-        const matchedbook = booksData?.filter(author=>author.authorName.toLowerCase().includes(authorName.toLowerCase()));
-        console.log(matchedbook.length);
-        setSearchBooks(matchedbook);
-        e.preventDefault();
-    }
-    const handleBookSearchByPublisherName = e =>{
-        const publisherName=e.target.value;
-        const matchedbook = booksData?.filter(publisher=>publisher.publisherName.toLowerCase().includes(publisherName.toLowerCase()));
-        console.log(matchedbook.length);
-        setSearchBooks(matchedbook);
-        e.preventDefault();
-    }
-    
     return (
-        <div>   
-            <Navbar></Navbar>
-            <Container>
-                <Typography variant ="h4" sx={{fontWeight:'bold', color:'blue', m:5}}>Find Books Here...</Typography>
-                <Box sx={{width: '100%',my:3}}>
-                    <div>
-                        <TextField type="text" onChange={handleBookSearchByName} label="Please Enter Book Name" sx={{width:'32%'}} />
-                        <TextField type="text" onChange={handleBookSearchByAuthorName} label="Please Enter Book Author Name" sx={{width:'32%',mx:2}} />
-                        <TextField type="text" onChange={handleBookSearchByPublisherName} label="Please Enter Book Publisher Name" sx={{width:'32%'}} />
-                        {/* <TextField type="text" onChange={e=>setName(e.target.value)} label="Please Enter Book Name" />
-                        <TextField type="text" onChange={e=>setAuthorName(e.target.value)} label="Please Enter Book Author Name" />
-                        <TextField type="text" onChange={e=>setPublisherName(e.target.value)} label="Please Enter Book Publisher Name" />
-                        <Button variant="contained" onClick={()=>handleBookSearch()}>Search</Button> */}
-                    </div>
-                </Box>
-                <Box sx={{ flexGrow: 1 }}>
+        <div>
+            <Container sx={{my:5}}>
+            <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={{ xs: 3, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
-                        {searchBooks.map(bd=> 
+                        {booksData.map(bd=> 
                             <Grid item xs={12} sm={3} md={4}>
                                 <Card sx={{ maxWidth: 345 }}>
                                     <CardActionArea>
@@ -107,10 +65,9 @@ const LibrarySerach = () => {
                         }
                     </Grid>
                 </Box>
-            </Container>
-            <Footer></Footer>
+            </Container>    
         </div>
     );
 };
 
-export default LibrarySerach;
+export default BookService;

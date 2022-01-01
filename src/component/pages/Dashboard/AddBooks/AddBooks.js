@@ -8,6 +8,7 @@ import { Alert, Button, Input } from '@mui/material';
 const AddBooks = () => {
     const[bookName, setBookName]=useState('');
     const[authorName, setAuthorName]=useState('');
+    const[bookPrice, setBookPrice]=useState('');
     const[publisherName, setPublisherName]=useState('');
     const[bookType, setBookType]=useState('');
     const[bookImage, setBookImage]=useState(null);
@@ -18,6 +19,7 @@ const AddBooks = () => {
         }
         const formData = new FormData();
         formData.append('bookName',bookName);
+        formData.append('bookPrice',bookPrice);
         formData.append('authorName',authorName);
         formData.append('publisherName',publisherName);
         formData.append('bookType',bookType);
@@ -31,6 +33,7 @@ const AddBooks = () => {
             console.log('Success:', result);
             setSuccess(true);
             setBookName('');
+            setBookPrice('');
             setAuthorName('');
             setPublisherName('');
             setBookType('');
@@ -62,6 +65,15 @@ const AddBooks = () => {
                         name="bookName"
                         type="name"
                         onChange={e=>setBookName(e.target.value)}
+                        variant="standard" />
+                        <br />
+                        <TextField 
+                        required
+                        sx={{width:"50%",mt:1}}
+                        label="Book Price" 
+                        name="price"
+                        type="number"
+                        onChange={e=>setBookPrice(e.target.value)}
                         variant="standard" />
                         <br />
                         <TextField 

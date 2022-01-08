@@ -14,6 +14,9 @@ import AdminRoute from './component/shared/AdminRoute/AdminRoute';
 import Profile from './component/pages/Dashboard/Profile/Profile';
 import Payment from './component/pages/Dashboard/Payment/Payment';
 import BookDisplay from './component/pages/Library/BookDisplay/BookDisplay';
+import BookName from './component/pages/Library/BookName/BookName';
+import AuthorName from './component/pages/Library/AuthorName/AuthorName';
+import PublisherName from './component/pages/Library/PublisherName/PublisherName';
 
 function App() {
   return (
@@ -23,8 +26,14 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />}/>
             <Route exact path="/home" element={<Home />} />
-            <Route exact path="librarySerach" element={<PrivateRoute>
-              <LibrarySerach />
+            <Route exact path="serachByBookName" element={<PrivateRoute>
+              <BookName />
+            </PrivateRoute>} />
+            <Route exact path="serachByAuthorName" element={<PrivateRoute>
+              <AuthorName />
+            </PrivateRoute>} />
+            <Route exact path="serachByPublisherName" element={<PrivateRoute>
+              <PublisherName />
             </PrivateRoute>} />
             <Route exact path="bookDisplay/:bookId" element={<PrivateRoute>
               <BookDisplay />

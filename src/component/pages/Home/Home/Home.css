@@ -1,0 +1,31 @@
+.header-banner{
+    height: 785px;
+    background-image: url('../../../../images/image13.jpg'),linear-gradient(rgb(37, 34, 34), rgb(10, 10, 250));;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.body-box {
+    background-color: rgba(189, 185, 185, 0.3);
+    border-radius: 5px;
+    font-family: sans-serif;
+    text-align: center;
+    line-height: 1;
+   -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+  }
+.btn-design{
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+}
+.btn-design:hover{
+    border: none;
+    background: linear-gradient(0.25turn,#ad915b, #1a1a33);
+    color: white;
+}

@@ -17,6 +17,8 @@ import ListItemText from '@mui/material/ListItemText';
 import { NavLink } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import useAuth from '../../../hook/useAuth';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const Navbar = () => {
      const {user,logout} = useAuth();
@@ -28,16 +30,15 @@ const Navbar = () => {
             textDecoration:'none',
         },
         nabItem:{
-            color:'black',
+            color:'white',
             textDecoration:'none',
         },
-        navIcon:{
-            [theme.breakpoints.up('sm')]: {
-                display:'none!important',
-            },
-        },    
+        // navIcon:{
+        //     [theme.breakpoints.up('sm')]: {
+        //         display:'none!important',
+        //     },
+        // },    
         navContainer:{
-            width:'40%',
             display:'inline-flex',
             [theme.breakpoints.down('sm')]: {
                 display:'none!important',
@@ -45,11 +46,11 @@ const Navbar = () => {
         },
         navLogo:{
             [theme.breakpoints.down('sm')]: {
-                textAlign:'right',
+                textAlign:'center',
             },
         },
         mobileNavItem:{
-            backgroundColor:'white',
+            backgroundColor:'black',
         }
     })
     const {nabItemMD,nabItem,navIcon,navContainer,navLogo,mobileNavItem} = useStyle();
@@ -58,11 +59,11 @@ const Navbar = () => {
 
     const list  =(
         <Box
-          sx={{ width : 200 }}
+          sx={{ width : 200 ,height:'100%'}}
           role="presentation"
           className={mobileNavItem}
         >
-            <List>
+            <List sx={{mt:10, mx:2}}>
                 <ListItem button>
                     <ListItemText ><Link className={nabItem} to="/home">Home</Link></ListItemText>
                 </ListItem>
@@ -73,13 +74,13 @@ const Navbar = () => {
                     <ListItemText><Link to="/dashboard" className={nabItem}>Dashboard</Link></ListItemText>
                 </ListItem>
                 <Divider />
-                {user.email && <Avatar alt="Cindy Baker" src={`data:image/png;base64,${viewProfile[0]?.profilePictute}`} />}
-                {user.email && <span style={{ padding:'10px', color: 'black' }}>{user.displayName} </span>}
+                {user.email ? <Avatar alt="Cindy Baker" src={`data:image/png;base64,${viewProfile[0]?.profilePictute}`} />:null}
+                {user.email && <span style={{ padding:'10px', color: 'white' }}>{user.displayName} </span>}
                 {
                     user?.email ?
                     <Button onClick={logout} color="inherit">Logout</Button>
                     :
-                    <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/login">
+                    <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/login">
                         <Button sx={{color:'black'}}>Login</Button>
                     </NavLink>
                 }
@@ -98,8 +99,9 @@ const Navbar = () => {
 
     return (
         <div>
+            <CssBaseline />
             <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" sx={{backgroundColor:'transparent',px:5}}>
                 <Toolbar>
                     <IconButton
                     size="large"
@@ -112,13 +114,13 @@ const Navbar = () => {
                     >
                     <MenuIcon />
                     </IconButton>
-                    <Typography className={navLogo} variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    WHO Library Management System
+                    <Typography className={navLogo} variant="h6" component="div" sx={{ flexGrow: 1,textAlign:'center' }}>
+                        Library Management System
                     </Typography>
                     <Box className={navContainer}>
-                        <Link to="/home" className={nabItemMD}><Button color="inherit">Home</Button></Link>
+                        {/* <Link to="/home" className={nabItemMD}><Button color="inherit">Home</Button></Link>
                         <Link to="/librarySerach" className={nabItemMD}><Button color="inherit">Find Books</Button></Link>
-                        <Link to="/dashboard" className={nabItemMD}><Button color="inherit">Dashboard</Button></Link>
+                        <Link to="/dashboard" className={nabItemMD}><Button color="inherit">Dashboard</Button></Link> */}
                         {user.email && <Avatar alt="Cindy Baker" src={`data:image/png;base64,${viewProfile[0]?.profilePictute}`} />}
                         {user.email && <span style={{ padding:'10px', color: 'white' }}>{user.displayName} </span>}
                         {
@@ -142,8 +144,7 @@ const Navbar = () => {
                     {list}
                 </Drawer>
             </React.Fragment>
-        </div>
-            
+        </div>   
         </div>
     );
 };

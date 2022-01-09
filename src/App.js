@@ -1,6 +1,5 @@
 import './App.css';
 import {BrowserRouter,Routes, Route} from "react-router-dom";
-import LibrarySerach from './component/pages/Library/LibrarySerach/LibrarySerach';
 import Dashboard from './component/pages/Dashboard/Dashboard/Dashboard';
 import Login from './component/shared/Login/Login';
 import Registration from './component/shared/Registration/Registration';
@@ -12,11 +11,11 @@ import AddBooks from './component/pages/Dashboard/AddBooks/AddBooks';
 import MakeAdmin from './component/pages/Dashboard/MakeAdmin/MakeAdmin';
 import AdminRoute from './component/shared/AdminRoute/AdminRoute';
 import Profile from './component/pages/Dashboard/Profile/Profile';
-import Payment from './component/pages/Dashboard/Payment/Payment';
 import BookDisplay from './component/pages/Library/BookDisplay/BookDisplay';
 import BookName from './component/pages/Library/BookName/BookName';
 import AuthorName from './component/pages/Library/AuthorName/AuthorName';
 import PublisherName from './component/pages/Library/PublisherName/PublisherName';
+import ViewAllBooks from './component/pages/Dashboard/ViewAllBooks/ViewAllBooks';
 
 function App() {
   return (
@@ -44,9 +43,11 @@ function App() {
                 <Route exact path = "/dashboard" element={<DashboardHome />}/>
                 <Route path = "/dashboard/addBooks" element={<AddBooks />}/>
                 <Route path = "/dashboard/profile" element={<Profile />}/>
-                <Route path = "/dashboard/payment" element={<Payment />}/>
                 <Route path = "/dashboard/makeAdmin" element={<AdminRoute>
                   <MakeAdmin />
+                </AdminRoute>}/>
+                <Route path = "/dashboard/viewAllBooks" element={<AdminRoute>
+                  <ViewAllBooks />
                 </AdminRoute>}/>
             </Route>
             <Route path="login" element={<Login />}/>

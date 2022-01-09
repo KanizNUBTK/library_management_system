@@ -1,0 +1,28 @@
+.pb-image{
+    height: 785px;
+    background-image: url('../../../../images/publisher1.jpg'),linear-gradient(rgb(37, 34, 34), rgb(10, 10, 250));;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.pb-box {
+    margin-top: 20px;
+    max-height: 600px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgba(245, 219, 219, 0.3);
+    border-radius: 5px;
+    font-family: sans-serif;
+    text-align: center;
+    line-height: 1;
+   -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    overflow-y: scroll;
+  }
+.bookNameSort {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }

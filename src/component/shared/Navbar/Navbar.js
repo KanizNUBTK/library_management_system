@@ -59,7 +59,7 @@ const Navbar = () => {
 
     const list  =(
         <Box
-          sx={{ width : 200 ,height:'100%'}}
+          sx={{ width : 400 ,height:'100%'}}
           role="presentation"
           className={mobileNavItem}
         >
@@ -68,7 +68,13 @@ const Navbar = () => {
                     <ListItemText ><Link className={nabItem} to="/home">Home</Link></ListItemText>
                 </ListItem>
                 <ListItem button>
-                    <ListItemText><Link className={nabItem} to="/librarySerach">Find Books</Link></ListItemText>
+                    <ListItemText><Link className={nabItem} to="/serachByBookName">Search Book By Books name</Link></ListItemText>
+                </ListItem>
+                <ListItem button>
+                    <ListItemText><Link className={nabItem} to="/serachByAuthorName">Search Book By Books Author name</Link></ListItemText>
+                </ListItem>
+                <ListItem button>
+                    <ListItemText><Link className={nabItem} to="/serachByPublisherName">Search Book By Books Publisher name</Link></ListItemText>
                 </ListItem>
                 <ListItem button>
                     <ListItemText><Link to="/dashboard" className={nabItem}>Dashboard</Link></ListItemText>

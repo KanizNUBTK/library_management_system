@@ -1,21 +1,12 @@
-import React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { Button } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Box } from '@mui/system';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const DashboardHome = () => {
+const ViewAllBooks = () => {
     const[books,setBooks]=useState([]);
     useEffect(()=>{
-        fetch('https://radiant-oasis-30989.herokuapp.com/cart')
+        fetch('https://radiant-oasis-30989.herokuapp.com/addBookData')
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
@@ -39,7 +30,6 @@ const DashboardHome = () => {
          })
         }
      }
-   
     return (
         <div>
             <Box sx={{width:{xs:300,sm:400, md:'100%'}}}>
@@ -47,12 +37,10 @@ const DashboardHome = () => {
                 <Table sx={{width:{xs:100,sm:200, md:'100%'}}} aria-label="simple table">
                     <TableHead>
                         <TableRow sx={{width:{xs:50,sm:100}}}>
-                            <TableCell>Student Name</TableCell>
-                            <TableCell>Student Email</TableCell>
-                            <TableCell>Book name</TableCell>
-                            <TableCell>Book Author name</TableCell>
-                            <TableCell>Book Publisher name</TableCell>
-                            <TableCell>Status</TableCell>
+                            <TableCell>Book Name</TableCell>
+                            <TableCell>Author Name</TableCell>
+                            <TableCell>Publisher Name</TableCell>
+                            <TableCell>Book Type</TableCell>
                             <TableCell>Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -60,16 +48,11 @@ const DashboardHome = () => {
                     {books.map((row) => (
                         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 },width:{xs:50,sm:100} }}>
                         <TableCell component="th" scope="row">
-                            {row.customerName}
+                            {row.bookName}
                         </TableCell>
-                        <TableCell>{row.email}</TableCell>
-                        <TableCell>{row.productName}</TableCell>
-                        <TableCell>{row.productPrice}</TableCell>
-                        <Link to="/dashboard/payment" style={{textDecoration:'none'}}>
-                        <TableCell>
-                            <Button variant="contained" sx={{ bgcolor:'red'}}>Pay</Button>
-                        </TableCell>
-                        </Link>
+                        <TableCell>{row.authorName}</TableCell>
+                        <TableCell>{row.publisherName}</TableCell>
+                        <TableCell>{row.bookType}</TableCell>
                         <TableCell>
                             <Button variant="contained" onClick={()=>handleDeleteUser(row._id)}  sx={{ bgcolor:'red'}}>Delete</Button>
                         </TableCell>
@@ -83,4 +66,4 @@ const DashboardHome = () => {
     );
 };
 
-export default DashboardHome;
+export default ViewAllBooks;

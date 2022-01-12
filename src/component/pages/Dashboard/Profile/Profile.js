@@ -54,14 +54,18 @@ const Profile = () => {
             console.error('Error:', error);
         });
     }
+    console.log(user.email);
     useEffect(()=>{
-        fetch('https://radiant-oasis-30989.herokuapp.com/profile')
+        fetch(`https://radiant-oasis-30989.herokuapp.com/profile`)
         .then(res=>res.json())
         .then(data=>{
-            //console.log(data);
+            console.log(data);
             setViewProfile(data);
         })
     },[]);
+    console.log(viewProfile);
+    const exactProfile = viewProfile.filter(ep=>ep.userEmail===user.email);
+    console.log(exactProfile);
     return (
         <div>
             <Container>
@@ -74,7 +78,7 @@ const Profile = () => {
                     </Grid>
                     { user.email &&
                     <Grid xs={12} md={6}>
-                        {viewProfile.map(vp=>
+                        {exactProfile.map(vp=>
                             <Box>
                             <Typography variant ="h5" sx={{fontWeight:'bold', color:'blue',my:1}}>Your Information..</Typography>
                             <Typography variant ="h6" sx={{my:1}}>Name : {vp?.userName}</Typography>

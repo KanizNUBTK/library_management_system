@@ -54,6 +54,18 @@ const Navbar = () => {
         }
     })
     const {nabItemMD,nabItem,navIcon,navContainer,navLogo,mobileNavItem} = useStyle();
+
+    //view profile picture
+    useEffect(()=>{
+        fetch('https://radiant-oasis-30989.herokuapp.com/profile')
+        .then(res=>res.json())
+        .then(data=>{
+            //console.log(data);
+            setViewProfile(data);
+        })
+    },[]);
+
+    const exactProfile = viewProfile.filter(ep=>ep.userEmail===user.email);
     //drawer style
     const [state, setState] = React.useState(false);
 
@@ -80,11 +92,11 @@ const Navbar = () => {
                     <ListItemText><Link to="/dashboard" className={nabItem}>Dashboard</Link></ListItemText>
                 </ListItem>
                 <Divider />
-                {user.email ? <Avatar alt="Cindy Baker" src={`data:image/png;base64,${viewProfile[0]?.profilePictute}`} />:null}
-                {user.email && <span style={{ padding:'10px', color: 'white' }}>{user.displayName} </span>}
+                {user.email ? <Avatar alt="Cindy Baker" src={`data:image/png;base64,${exactProfile[0]?.profilePictute}`} />:null}
+                {user.email && <span style={{ padding:'10px', color: 'white' }}>{user.displayName} </span>} <br />
                 {
                     user?.email ?
-                    <Button onClick={logout} color="inherit">Logout</Button>
+                    <Button onClick={logout} color="inherit" sx={{color:'white'}}>Logout</Button>
                     :
                     <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/login">
                         <Button sx={{color:'black'}}>Login</Button>
@@ -93,15 +105,7 @@ const Navbar = () => {
             </List>
         </Box>
       );
-      //view profile picture
-      useEffect(()=>{
-        fetch('https://radiant-oasis-30989.herokuapp.com/profile')
-        .then(res=>res.json())
-        .then(data=>{
-            //console.log(data);
-            setViewProfile(data);
-        })
-    },[]);
+      
 
     return (
         <div>
@@ -127,7 +131,7 @@ const Navbar = () => {
                         {/* <Link to="/home" className={nabItemMD}><Button color="inherit">Home</Button></Link>
                         <Link to="/librarySerach" className={nabItemMD}><Button color="inherit">Find Books</Button></Link>
                         <Link to="/dashboard" className={nabItemMD}><Button color="inherit">Dashboard</Button></Link> */}
-                        {user.email && <Avatar alt="Cindy Baker" src={`data:image/png;base64,${viewProfile[0]?.profilePictute}`} />}
+                        {user.email && <Avatar alt="Cindy Baker" src={`data:image/png;base64,${exactProfile[0]?.profilePictute}`} />}
                         {user.email && <span style={{ padding:'10px', color: 'white' }}>{user.displayName} </span>}
                         {
                         user?.email ?

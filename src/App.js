@@ -16,6 +16,7 @@ import BookName from './component/pages/Library/BookName/BookName';
 import AuthorName from './component/pages/Library/AuthorName/AuthorName';
 import PublisherName from './component/pages/Library/PublisherName/PublisherName';
 import ViewAllBooks from './component/pages/Dashboard/ViewAllBooks/ViewAllBooks';
+import MakeTeacher from './component/pages/Dashboard/MakeTeacher/MakeTeacher';
 
 function App() {
   return (
@@ -48,6 +49,9 @@ function App() {
                 </AdminRoute>}/>
                 <Route path = "/dashboard/viewAllBooks" element={<AdminRoute>
                   <ViewAllBooks />
+                </AdminRoute>}/>
+                <Route path = "/dashboard/makeTeacher" element={<AdminRoute>
+                  <MakeTeacher />
                 </AdminRoute>}/>
             </Route>
             <Route path="login" element={<Login />}/>

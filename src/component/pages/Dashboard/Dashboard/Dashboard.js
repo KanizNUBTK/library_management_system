@@ -38,6 +38,7 @@ const Dashboard = (props) => {
             {admin && <Box>
                 <Link to={`/dashboard/makeAdmin`} style={{textDecoration:'none'}}><Button color="inherit">Make Admin</Button></Link>
                 <Link to={`/dashboard/viewAllBooks`} style={{textDecoration:'none'}}><Button color="inherit">View All Books</Button></Link>
+                <Link to={`/dashboard/makeTeacher`} style={{textDecoration:'none'}}><Button color="inherit">Make Teacher</Button></Link>
             </Box>}
             {user.email && <span style={{ padding:'10px' }}>{user.displayName} </span>} <br />
             {

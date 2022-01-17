@@ -1,16 +1,19 @@
-.bg-image{
-    height: 785px;
-    background-image: url('../../../../images/image3.jpg'),linear-gradient(rgb(37, 34, 34), rgb(10, 10, 250));;
+.bg-openbook-image{
+    height: 550px;
+    width:90%;
+    margin: auto;
+    background-image: url('../../../../images/openbook1.png'),linear-gradient(rgb(37, 34, 34), rgb(10, 10, 250));;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    box-shadow: 5px 10px 10px 10px #c9af93;
 }
 .book-box {
     margin-top: 20px;
     max-height: 600px;
     padding-left: 20px;
     padding-right: 20px;
-    background-color: rgba(243, 196, 196, 0.3);
+    background-color: rgba(153, 118, 5, 0.3);
     border-radius: 5px;
     font-family: sans-serif;
     text-align: center;
@@ -19,10 +22,3 @@
     backdrop-filter: blur(10px);
     overflow-y: scroll;
   }
-.bookNameSort {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-}

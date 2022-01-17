@@ -4,175 +4,154 @@ import { Container,Alert} from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Backdrop from '@mui/material/Backdrop';
 import TextField from '@mui/material/TextField';
 import useAuth from '../../../../hook/useAuth';
 import Navbar from '../../../shared/Navbar/Navbar';
 import Footer from '../../../shared/Footer/Footer';
+import Grid from '@mui/material/Grid';
+import './BookDisplay.css';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
 
 const BookDisplay = () => {
     const{user}=useAuth();
-    const [bookKey, setBookKey] = useState([]);
-    const initialInfo = {customerName:user.displayName, email:user.email}
-    const [bookingInfo, setBookingInfo] = useState(initialInfo); 
     const { bookId } = useParams();
-    const[success, setSuccess]=useState(false);
-    const [openbooking, setBookingOpen] = React.useState(false);
-    const handleBookingOpen = () => {setBookingOpen(true);};
-    const handleBookingClose = () => {setBookingOpen(false);};
-    console.log(bookId);
-    useEffect(() => {
+    const [displayBook, setDisplayBooks] = useState([]);
+    useEffect(()=>{
         fetch('https://radiant-oasis-30989.herokuapp.com/addBookData')
-          .then((res) => res.json())
-          .then((data) => {
-              console.log(data);
-              setBookKey(data)});
-      }, [bookId]);
-    const exactData = bookKey.filter(pd=> pd._id == bookId);
-    console.log(exactData);
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            setDisplayBooks(data);
+        })
+    },[bookId])
+    console.log(displayBook);
+    const exactData = displayBook.filter(pd=> pd._id == bookId);
+    const filterBook = exactData[0]?.bookName;
+    console.log( user.displayName,user.email,filterBook);
 
-    const handleOnBlur = e =>{
-        const field = e.target.name;
-        const value = e.target.value;
-        const newInfo = {...bookingInfo};
-        newInfo[field]=value;
-        console.log(newInfo);
-        setBookingInfo(newInfo);
-      }
-  
+    const[receiverName,setReceiverName] = useState(user.displayName)
+    const[receiverEmail,setReceiverEmail] = useState(user.email);
+    const[receiverPhoneNumber,setReceiverPhoneNumber] = useState('');
+    const[receiveDate,setReceiverDate] = useState(new Date().toDateString());
+    const[returnDate,setReturnDate] = useState(new Date().toDateString());
+    const[success, setSuccess]=useState(false);
+    const[nameBook,setNameBook] = useState(exactData);
 
     const handleBookSubmit=e=>{
-        const orders ={
-            ...bookingInfo,
-            productName: exactData[0]?.bookName,
-            productPrice: exactData[0]?.price,
-          }
+          e.preventDefault();
+        const formData = new FormData();
+        formData.append('receiverName',receiverName);
+        formData.append('receiverEmail',receiverEmail);
+        formData.append('receiverPhoneNumber',receiverPhoneNumber);
+        formData.append('receiveDate',receiveDate);
+        formData.append('returnDate',returnDate);
+        formData.append('bookName',exactData[0].bookName);
+        
           //send server
           fetch('https://radiant-oasis-30989.herokuapp.com/cart', {
-              method: 'POST',
-              headers: {
-                  'content-type': 'application/json'
-              },
-              body: JSON.stringify(orders)
-          })
+             method: 'POST',
+            body: formData
+        })
           .then(res => res.json())
           .then(data => {
               console.log(data);
             if(data.insertedId){
               setSuccess(true);
-              handleBookingClose();
             }
           });
           e.preventDefault();
     }
     return (
-        <div>
-            <Navbar></Navbar>
-            <Container>
-                <Typography variant ="h4" sx={{fontWeight:'bold', color:'blue', m:5}}>Book...</Typography>
+        <div style={{backgroundColor:'rgba(153, 118, 5, 0.3)', paddingBottom:'60px'}}>
+        <Navbar></Navbar>
+        <div className='bg-openbook-image'>
+            <Container sx={{m:10}}>
+             {exactData[0]?.bookName}
                 <Box sx={{ flexGrow: 1 }}>
-                    <div style={{display:'flex'}}>
-                        <div>
-                            <img style={{width:'500px', height:'400px'}} src={`data:image/png;base64,${exactData[0]?.bookImage}`} alt="pic" />
-                        </div>
-                        <div style={{paddingLeft:'30px',paddingTop:'20px'}}>
-                            <Typography gutterBottom variant="h4" component="div" sx={{fontWeight:'bold'}}>
-                                {exactData[0]?.bookName}
-                            </Typography>
-                            <Typography gutterBottom variant="h5" component="div">
-                                Price: <span>$</span> {exactData[0]?.price}
-                            </Typography>
-                            <Typography variant="body1">
-                                Author name: {exactData[0]?.authorName}
-                            </Typography>
-                            <Typography variant="body1">
-                                Publisher name: {exactData[0]?.publisherName}
-                            </Typography>
-                            <Typography variant="body1">
-                                Type: {exactData[0]?.bookType}
-                            </Typography>
-                            <Button sx={{mt:1}} onClick={handleBookingOpen} variant="contained">Add To Cart</Button> 
-                        </div>
-                    </div>
-                </Box>
-            </Container>
-            <Container>
-                <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                open={openbooking}
-                onClose={handleBookingClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                timeout: 500,
-                }}
-                >
-                    <Fade in={openbooking}>
-                        <Box sx={style}>
-                            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                    <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                        <Grid item xs={12} sm={12} md={6}> 
+                            <Box sx={{md:{pl:'30px',pt:'20px'}}}>
+                                <img style={{width:'150px', height:'150px'}} src={`data:image/png;base64,${exactData[0]?.bookImage}`} alt="pic" />
+                                    <Typography gutterBottom variant="h4" component="div" sx={{fontWeight:'bold'}}>
+                                        {exactData[0]?.bookName}
+                                    </Typography>
+                                    <Typography variant="body1">
+                                        Author name: {exactData[0]?.authorName}
+                                    </Typography>
+                                    <Typography variant="body1">
+                                        Publisher name: {exactData[0]?.publisherName}
+                                    </Typography>
+                                    <Typography variant="body1">
+                                        Type: {exactData[0]?.bookType}
+                                    </Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={6}>
+                            <Box sx={{mx:'5'}}>
                                 <form onSubmit={handleBookSubmit}>
                                     <TextField
                                         sx={{width: '90%', m: 1}}
                                         id="outlined-size-small"
-                                        onBlur={handleOnBlur}
+                                        name="bookName"
+                                        onChange = {e => setNameBook(e.target.value)}
                                         value={exactData[0]?.bookName}
                                         size="small"
                                     />
+                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                        <DatePicker
+                                            label="Receive date"
+                                            value={receiveDate}
+                                            name="receiveDate"
+                                            onChange = {newDate => setReceiverDate(newDate)}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+                                    </LocalizationProvider>
+                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                        <DatePicker
+                                            label="Return Date"
+                                            value={returnDate}
+                                            name="checkOutTime"
+                                            onChange={newDate => setReturnDate(newDate)}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+                                    </LocalizationProvider>
                                     <TextField
                                         sx={{width: '90%', m: 1}}
                                         id="outlined-size-small"
-                                        onBlur={handleOnBlur}
-                                        value={exactData[0]?.price}
+                                        name="receiverName"
+                                        onChange={e => setReceiverName(e.target.value)}
+                                        value={user.displayName}
                                         size="small"
                                     />
                                     <TextField
                                         sx={{width: '90%', m: 1}}
                                         id="outlined-size-small"
-                                        name="customerName"
-                                        onBlur={handleOnBlur}
-                                        defaultValue={user.displayName}
+                                        name="receiverEmail"
+                                        onChange={e => setReceiverEmail(e.target.value)}
+                                        value={user.email}
                                         size="small"
                                     />
                                     <TextField
                                         sx={{width: '90%', m: 1}}
                                         id="outlined-size-small"
-                                        name="email"
-                                        onBlur={handleOnBlur}
-                                        defaultValue={user.email}
+                                        name="receiverPhoneNumber"
+                                        onChange={e => setReceiverPhoneNumber(e.target.value)}
+                                        label="Your phone number"
                                         size="small"
                                     />
-                                    <TextField
-                                        sx={{width: '90%', m: 1}}
-                                        id="outlined-size-small"
-                                        name="phone"
-                                        onBlur={handleOnBlur}
-                                        defaultValue="Your phone number"
-                                        size="small"
-                                    />
-                                    <Button sx={{mt:2}} type ="submit" variant="contained">Submit cart</Button>
+                                    <Button sx={{mt:2}} type ="submit" variant="contained">Booking</Button>
                                 </form>
-                            </Typography>
-                        </Box>
-                    </Fade>
-                </Modal>
-                {success && <Alert severity="success">Book order submited successfully!</Alert>}
-            </Container> 
-            <Footer></Footer>  
+                                {success && <Alert severity="success">Booking request submited successfully!</Alert>}
+                            </Box>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Container>  
+        </div>
+        <Footer></Footer>
         </div>
     );
 };

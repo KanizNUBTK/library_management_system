@@ -50,8 +50,10 @@ const DashboardHome = () => {
                             <TableCell>Student Name</TableCell>
                             <TableCell>Student Email</TableCell>
                             <TableCell>Book name</TableCell>
-                            <TableCell>Book Author name</TableCell>
-                            <TableCell>Book Publisher name</TableCell>
+                            <TableCell>receive date</TableCell>
+                            <TableCell>return date</TableCell>
+                            <TableCell>Student Phone Number</TableCell>
+                            {/* <TableCell>Book Publisher name</TableCell> */}
                             <TableCell>Status</TableCell>
                             <TableCell>Action</TableCell>
                         </TableRow>
@@ -60,16 +62,18 @@ const DashboardHome = () => {
                     {books.map((row) => (
                         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 },width:{xs:50,sm:100} }}>
                         <TableCell component="th" scope="row">
-                            {row.customerName}
+                            {row.receiverName}
                         </TableCell>
-                        <TableCell>{row.email}</TableCell>
-                        <TableCell>{row.productName}</TableCell>
-                        <TableCell>{row.productPrice}</TableCell>
-                        <Link to="/dashboard/payment" style={{textDecoration:'none'}}>
+                        <TableCell>{row.receiverEmail}</TableCell>
+                        <TableCell>{row.bookName}</TableCell>
+                        <TableCell>{row.receiveDate}</TableCell>
+                        <TableCell>{row.returnDate}</TableCell>
+                        <TableCell>{row.receiverPhoneNumber}</TableCell>
+                        {/* <Link to="/dashboard/payment" style={{textDecoration:'none'}}> */}
                         <TableCell>
-                            <Button variant="contained" sx={{ bgcolor:'red'}}>Pay</Button>
+                            <Button variant="contained" sx={{ bgcolor:'red'}}>Pending</Button>
                         </TableCell>
-                        </Link>
+                        {/* </Link> */}
                         <TableCell>
                             <Button variant="contained" onClick={()=>handleDeleteUser(row._id)}  sx={{ bgcolor:'red'}}>Delete</Button>
                         </TableCell>

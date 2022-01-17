@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
-import { Container , Alert} from '@mui/material';
+import { Container , Alert, CircularProgress} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
@@ -15,7 +15,7 @@ const Input = styled('input')({
   });
 
 const Profile = () => {
-    const{user}=useAuth();
+    const{user,isLoading}=useAuth();
     const[name, setName] = useState(user.displayName);
     const[email, setEmail] = useState(user.email);
     const[phoneNumber, setPhoneNumber] = useState('');
@@ -24,6 +24,7 @@ const Profile = () => {
     const[personTow, setPersonTwo] = useState('');
     const[profilePictute, setProfilePictute] = useState(null);
     const[success, setSuccess] = useState(false);
+    const[complete,setComplete]=useState(false);
     //view user profile data
     const[viewProfile, setViewProfile]=useState([]);
      console.log(user.email);
@@ -49,6 +50,7 @@ const Profile = () => {
         .then(result => {
             console.log('Success:', result);
             setSuccess(true);
+            setComplete(true);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -59,13 +61,13 @@ const Profile = () => {
         fetch(`https://radiant-oasis-30989.herokuapp.com/profile`)
         .then(res=>res.json())
         .then(data=>{
-            console.log(data);
+            //console.log('profile data',data);
             setViewProfile(data);
         })
     },[]);
-    console.log(viewProfile);
+    console.log('view profile',viewProfile);
     const exactProfile = viewProfile.filter(ep=>ep.userEmail===user.email);
-    console.log(exactProfile);
+    //console.log(exactProfile);
     return (
         <div>
             <Container>
@@ -73,11 +75,11 @@ const Profile = () => {
                 <Grid style={{marginTop:'10px'}} container spacing={{ xs: 12, md: 3 }} columns={{ xs: 12, sm: 8, md: 12 }}>
                     <Grid xs={12} md={6} sx={{mb:3}}>
                         <Box sx={{mx:10}}>
-                            <img style={{height:'300px',width:'300px',borderRadius:'50%'}} src={`data:image/png;base64,${viewProfile[0]?.profilePictute}`} alt="" />
+                            <img style={{height:'300px',width:'300px',borderRadius:'50%'}} src={`data:image/png;base64,${exactProfile[0]?.profilePictute}`} alt="" />
                         </Box>
                     </Grid>
-                    { user.email &&
-                    <Grid xs={12} md={6}>
+                    {isLoading && <CircularProgress />}
+                    {<Grid xs={12} md={6}>
                         {exactProfile.map(vp=>
                             <Box>
                             <Typography variant ="h5" sx={{fontWeight:'bold', color:'blue',my:1}}>Your Information..</Typography>
@@ -95,6 +97,7 @@ const Profile = () => {
             <Divider variant="middle" />
             <Container>
             <Box sx={{mx:5, my:5}}>
+            {!complete ?<div>
                 <Typography variant ="h4" sx={{fontWeight:'bold', color:'blue'}}>Update Your Profile...</Typography>
                 <form onSubmit={handleUserProfile}>
                 <br />
@@ -151,13 +154,17 @@ const Profile = () => {
                 <TextField 
                 required
                 sx={{width:'75%'}} 
-                label="Email someone you know who is a library member(person two) " 
+                label="Enater your Teacher Email" 
                 name="personTow"
                 type="email"
                 onChange = {e => setPersonTwo(e.target.value)}
                 variant="standard" />
                 <Button type="submit" variant="contained" sx={{width: '75%', mt:1}}>Added</Button>
                 </form>
+                </div>
+                :
+                <Typography variant ="h4" sx={{fontWeight:'bold', color:'blue'}}>Your Profile is up to date</Typography>
+                }
                 {success && <Alert severity="success">Profile is completed</Alert>}
             </Box>
         </Container>

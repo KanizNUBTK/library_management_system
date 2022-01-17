@@ -69,13 +69,12 @@ const BookDisplay = () => {
         <Navbar></Navbar>
         <div className='bg-openbook-image'>
             <Container sx={{m:10}}>
-             {exactData[0]?.bookName}
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                         <Grid item xs={12} sm={12} md={6}> 
                             <Box sx={{md:{pl:'30px',pt:'20px'}}}>
                                 <img style={{width:'150px', height:'150px'}} src={`data:image/png;base64,${exactData[0]?.bookImage}`} alt="pic" />
-                                    <Typography gutterBottom variant="h4" component="div" sx={{fontWeight:'bold'}}>
+                                    <Typography gutterBottom variant="h5" component="div" sx={{fontWeight:'bold'}}>
                                         {exactData[0]?.bookName}
                                     </Typography>
                                     <Typography variant="body1">
@@ -105,7 +104,7 @@ const BookDisplay = () => {
                                             label="Receive date"
                                             value={receiveDate}
                                             name="receiveDate"
-                                            onChange = {newDate => setReceiverDate(newDate)}
+                                            onChange = {newDate => setReceiverDate(newDate.toDateString())}
                                             renderInput={(params) => <TextField {...params} />}
                                         />
                                     </LocalizationProvider>
@@ -114,7 +113,7 @@ const BookDisplay = () => {
                                             label="Return Date"
                                             value={returnDate}
                                             name="checkOutTime"
-                                            onChange={newDate => setReturnDate(newDate)}
+                                            onChange={newDate => setReturnDate(newDate.toDateString())}
                                             renderInput={(params) => <TextField {...params} />}
                                         />
                                     </LocalizationProvider>

@@ -29,7 +29,7 @@ const Registration = () => {
             alert('Your password did not match');
             return
         }
-        registerUser(registarData.email, registarData.password, registarData.name, locaction,navigate);
+        registerUser(registarData.email, registarData.password, registarData.name,registarData.role, locaction,navigate);
         //console.log(registarData.email, registarData.password, registarData.name);
     }
     return (
@@ -69,6 +69,13 @@ const Registration = () => {
                                     label="ReType Password" 
                                     name="password2"
                                     type="password"
+                                    onBlur={handleOnBlur}
+                                    variant="standard" />
+                                    <TextField 
+                                    sx={{width:"100%",mt:2}}
+                                    label="Are You Student or Teacher?" 
+                                    name="role"
+                                    type="text"
                                     onBlur={handleOnBlur}
                                     variant="standard" />
                                     <Button variant="contained" type="submit" sx={{width:"100%",mt:2}}>Register</Button>

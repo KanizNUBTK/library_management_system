@@ -11,17 +11,22 @@ import { useEffect } from 'react';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../../hook/useAuth';
 
 const DashboardHome = () => {
+    const{user}=useAuth();
     const[books,setBooks]=useState([]);
     useEffect(()=>{
-        fetch('https://radiant-oasis-30989.herokuapp.com/cart')
+        fetch(`https://radiant-oasis-30989.herokuapp.com/cart`)
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
             setBooks(data);
         })
     },[])
+    console.log(user.email);
+    const exactData = books.filter(book=>book.receiverEmail===user.email);
+    console.log(exactData);
     const handleDeleteUser = id =>{
         const proceed = window.confirm('Are sure you want to delete the customer?');
         if(proceed){
@@ -59,7 +64,7 @@ const DashboardHome = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody sx={{width:{xs:50,sm:100}}}>
-                    {books.map((row) => (
+                    {exactData.map((row) => (
                         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 },width:{xs:50,sm:100} }}>
                         <TableCell component="th" scope="row">
                             {row.receiverName}

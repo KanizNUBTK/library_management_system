@@ -16,7 +16,7 @@ import BookName from './component/pages/Library/BookName/BookName';
 import AuthorName from './component/pages/Library/AuthorName/AuthorName';
 import PublisherName from './component/pages/Library/PublisherName/PublisherName';
 import ViewAllBooks from './component/pages/Dashboard/ViewAllBooks/ViewAllBooks';
-import MakeTeacher from './component/pages/Dashboard/MakeTeacher/MakeTeacher';
+import DisplayUsers from './component/pages/Dashboard/DisplayUsers/DisplayUsers';
 
 function App() {
   return (
@@ -50,8 +50,8 @@ function App() {
                 <Route path = "/dashboard/viewAllBooks" element={<AdminRoute>
                   <ViewAllBooks />
                 </AdminRoute>}/>
-                <Route path = "/dashboard/makeTeacher" element={<AdminRoute>
-                  <MakeTeacher />
+                <Route path = "/dashboard/displayAllUsers" element={<AdminRoute>
+                  <DisplayUsers />
                 </AdminRoute>}/>
             </Route>
             <Route path="login" element={<Login />}/>

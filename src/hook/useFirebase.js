@@ -13,16 +13,16 @@ const useFirebase = () => {
     const auth = getAuth();
 
     //registartion
-    const registerUser = (email,password,name,locaction,navigate)=>{
+    const registerUser = (email,password,name,role,locaction,navigate)=>{
         console.log(name);
         setIsloading(true);
         const destination = locaction?.state?.from || '/' ;
-        createUserWithEmailAndPassword(auth, email, password)
+        createUserWithEmailAndPassword(auth, email, password,role)
             .then((userCredential) => {
                 setAuthError('');
                 const newUser = {email, displayName:name};
                 setUser(newUser);
-                savedUser(email,name);
+                savedUser(email,name,role);
                 navigate(destination);
                 updateProfile(auth.currentUser, {
                     displayName: name
@@ -83,8 +83,8 @@ const useFirebase = () => {
           });
     }
     //saved user in database
-    const savedUser = (email,displayName)=>{
-        const user={email,displayName};
+    const savedUser = (email,displayName,role)=>{
+        const user={email,displayName,role};
         fetch('https://radiant-oasis-30989.herokuapp.com/users',{
             method:'POST',
             headers:{'content-type':'application/json'},

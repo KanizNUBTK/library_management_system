@@ -20,8 +20,8 @@ const Profile = () => {
     const[email, setEmail] = useState(user.email);
     const[phoneNumber, setPhoneNumber] = useState('');
     const[address, setAddress] = useState('');
-    const[personOne, setpersonOne] = useState('');
-    const[personTow, setPersonTwo] = useState('');
+    const[teacherEmail, setTeacherEmail] = useState('');
+    const[friendEmail, setFriendEmail] = useState('');
     const[profilePictute, setProfilePictute] = useState(null);
     const[success, setSuccess] = useState(false);
     const[complete,setComplete]=useState(false);
@@ -31,6 +31,7 @@ const Profile = () => {
     const handleUserProfile = e=>{
         e.preventDefault();
         if(!profilePictute){
+            alert('Please upload your picture')
             return;
         }
         const formData = new FormData();
@@ -38,8 +39,8 @@ const Profile = () => {
         formData.append('email',email);
         formData.append('phoneNumber',phoneNumber);
         formData.append('address',address);
-        formData.append('personOne',personOne);
-        formData.append('personTow',personTow);
+        formData.append('teacherEmail',teacherEmail);
+        formData.append('friendEmail',friendEmail);
         formData.append('profilePictute',profilePictute);
 
         fetch('https://radiant-oasis-30989.herokuapp.com/profile', {
@@ -87,8 +88,8 @@ const Profile = () => {
                             <Typography variant ="h6" sx={{my:1}}>Email : {vp?.userEmail}</Typography>
                             <Typography variant ="h6" sx={{my:1}}>Phone Number : {vp?.userPhoneNumber}</Typography>
                             <Typography variant ="h6" sx={{my:1}}>Address : {vp?.userAddress}</Typography>
-                            <Typography variant ="h6" sx={{my:1}}>Neighbor : {vp?.memberOne}</Typography>
-                            <Typography variant ="h6" sx={{my:1}}>Neighbor : {vp?.memberTow}</Typography>
+                            <Typography variant ="h6" sx={{my:1}}>Teacher Email : {vp?.teacherEmail}</Typography>
+                            <Typography variant ="h6" sx={{my:1}}>Friends Email : {vp?.friendEmail}</Typography>
                             </Box>)}
                     </Grid>
                     }
@@ -146,18 +147,18 @@ const Profile = () => {
                 <TextField 
                 required
                 sx={{width:'75%'}} 
-                label="Email someone you know who is a library member(person one) " 
-                name="personOne"
+                label="Enter your Teacher Email " 
+                name="teacherEmail"
                 type="email"
-                onChange = {e => setpersonOne(e.target.value)}
+                onChange = {e => setTeacherEmail(e.target.value)}
                 variant="standard" />
                 <TextField 
                 required
                 sx={{width:'75%'}} 
-                label="Enater your Teacher Email" 
-                name="personTow"
+                label="Email someone you know who is a library member or your friend" 
+                name="friendEmail"
                 type="email"
-                onChange = {e => setPersonTwo(e.target.value)}
+                onChange = {e => setFriendEmail(e.target.value)}
                 variant="standard" />
                 <Button type="submit" variant="contained" sx={{width: '75%', mt:1}}>Added</Button>
                 </form>

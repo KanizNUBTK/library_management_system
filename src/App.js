@@ -42,8 +42,10 @@ function App() {
                 <Dashboard />
               </PrivateRoute>} >
                 <Route exact path = "/dashboard" element={<DashboardHome />}/>
-                <Route path = "/dashboard/addBooks" element={<AddBooks />}/>
                 <Route path = "/dashboard/profile" element={<Profile />}/>
+                <Route path = "/dashboard/makeAdmin" element={<AdminRoute>
+                  <AddBooks />
+                </AdminRoute>}/>
                 <Route path = "/dashboard/makeAdmin" element={<AdminRoute>
                   <MakeAdmin />
                 </AdminRoute>}/>

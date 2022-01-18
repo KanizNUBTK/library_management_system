@@ -33,9 +33,9 @@ const Dashboard = (props) => {
             <Divider />
             <Link to="/" style={{textDecoration:'none'}}><Button color="inherit">Home</Button></Link> <br />
             <Link to="/dashboard" style={{textDecoration:'none'}}><Button color="inherit">Dashboard</Button></Link> <br />
-            <Link to="/dashboard/addBooks" style={{textDecoration:'none'}}><Button color="inherit">Add Books</Button></Link> <br />
             <Link to="/dashboard/profile" style={{textDecoration:'none'}}><Button color="inherit">Profile</Button></Link> <br />
             {admin && <Box>
+                <Link to="/dashboard/addBooks" style={{textDecoration:'none'}}><Button color="inherit">Add Books</Button></Link> <br />
                 <Link to={`/dashboard/makeAdmin`} style={{textDecoration:'none'}}><Button color="inherit">Make Admin</Button></Link>
                 <Link to={`/dashboard/viewAllBooks`} style={{textDecoration:'none'}}><Button color="inherit">View All Books</Button></Link>
                 <Link to={`/dashboard/displayAllUsers`} style={{textDecoration:'none'}}><Button color="inherit">All Users</Button></Link>

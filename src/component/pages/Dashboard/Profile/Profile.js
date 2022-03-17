@@ -24,10 +24,10 @@ const Profile = () => {
     const[friendEmail, setFriendEmail] = useState('');
     const[profilePictute, setProfilePictute] = useState(null);
     const[success, setSuccess] = useState(false);
-    const[complete,setComplete]=useState(false);
+    const[complete,setComplete]=useState(localStorage.getItem('myValueInLocalStorage') || false);
     //view user profile data
     const[viewProfile, setViewProfile]=useState([]);
-     console.log(user.email);
+     console.log(email);
     const handleUserProfile = e=>{
         e.preventDefault();
         if(!profilePictute){
@@ -42,16 +42,17 @@ const Profile = () => {
         formData.append('teacherEmail',teacherEmail);
         formData.append('friendEmail',friendEmail);
         formData.append('profilePictute',profilePictute);
+        formData.append('status',true);
 
-        fetch('https://radiant-oasis-30989.herokuapp.com/profile', {
-            method: 'POST',
+        fetch('https://radiant-oasis-30989.herokuapp.com/users', {
+            method: 'PUT',
             body: formData
         })
         .then(response => response.json())
         .then(result => {
             console.log('Success:', result);
             setSuccess(true);
-            setComplete(true);
+            //localStorage.setItem(setComplete(true));
         })
         .catch(error => {
             console.error('Error:', error);
@@ -59,16 +60,19 @@ const Profile = () => {
     }
     console.log(user.email);
     useEffect(()=>{
-        fetch(`https://radiant-oasis-30989.herokuapp.com/profile`)
+        fetch(`https://radiant-oasis-30989.herokuapp.com/users`)
         .then(res=>res.json())
         .then(data=>{
-            //console.log('profile data',data);
+            console.log('profile data',data);
             setViewProfile(data);
         })
     },[]);
     console.log('view profile',viewProfile);
-    const exactProfile = viewProfile.filter(ep=>ep.userEmail===user.email);
-    //console.log(exactProfile);
+    const exactProfile = viewProfile.filter(ep=>ep.email===email);
+    let status=false;
+     console.log(exactProfile);
+    //console.log(exactProfile[0].status);
+    if(exactProfile.length>0){status=exactProfile[0].status}
     return (
         <div>
             <Container>
@@ -84,8 +88,8 @@ const Profile = () => {
                         {exactProfile.map(vp=>
                             <Box>
                             <Typography variant ="h5" sx={{fontWeight:'bold', color:'blue',my:1}}>Your Information..</Typography>
-                            <Typography variant ="h6" sx={{my:1}}>Name : {vp?.userName}</Typography>
-                            <Typography variant ="h6" sx={{my:1}}>Email : {vp?.userEmail}</Typography>
+                            <Typography variant ="h6" sx={{my:1}}>Name : {vp?.displayName}</Typography>
+                            <Typography variant ="h6" sx={{my:1}}>Email : {vp?.email}</Typography>
                             <Typography variant ="h6" sx={{my:1}}>Phone Number : {vp?.userPhoneNumber}</Typography>
                             <Typography variant ="h6" sx={{my:1}}>Address : {vp?.userAddress}</Typography>
                             <Typography variant ="h6" sx={{my:1}}>Teacher Email : {vp?.teacherEmail}</Typography>
@@ -98,7 +102,7 @@ const Profile = () => {
             <Divider variant="middle" />
             <Container>
             <Box sx={{mx:5, my:5}}>
-            {!complete ?<div>
+            {!status?<div>
                 <Typography variant ="h4" sx={{fontWeight:'bold', color:'blue'}}>Update Your Profile...</Typography>
                 <form onSubmit={handleUserProfile}>
                 <br />
@@ -167,7 +171,7 @@ const Profile = () => {
                 <Typography variant ="h4" sx={{fontWeight:'bold', color:'blue'}}>Your Profile is up to date</Typography>
                 }
                 {success && <Alert severity="success">Profile is completed</Alert>}
-            </Box>
+            </Box> 
         </Container>
         </div>
     );

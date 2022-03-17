@@ -84,7 +84,7 @@ const useFirebase = () => {
     }
     //saved user in database
     const savedUser = (email,displayName,role)=>{
-        const user={email,displayName,role};
+        const user={email,displayName,role,status:false};
         fetch('https://radiant-oasis-30989.herokuapp.com/users',{
             method:'POST',
             headers:{'content-type':'application/json'},
